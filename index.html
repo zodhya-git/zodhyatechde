@@ -91,6 +91,140 @@
             }
         }
     </style>
+
+
+     <style>
+        @media (max-width:767px) {
+           .recognizationimg {
+                max-width: 150px;
+                max-height: 150px;
+            }
+        }
+
+        @media (max-width:768px) {
+            .recognizationimg {
+                max-width: 150px;
+                max-height: 150px;
+            }
+        }
+
+        @media (max-width:992px) {
+            .recognizationimg {
+                /* max-width: 200px; */
+                max-height: 200px;
+            }
+            
+        }
+
+        @media (min-width:1080px) {
+            .recognizationimg {
+                max-width: 200px;
+                max-height: 200px;
+            }
+        }
+
+        /* Newsletter floating popup */
+        .newsletter-fab {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            border-radius: 12px;
+            padding: 14px 14px 16px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+            z-index: 1000;
+            width: 350px;
+            min-height: 150px;
+        }
+        .newsletter-fab .close-fab {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: #1b617d;
+            color: #fff;
+            line-height: 28px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .newsletter-fab .fab-label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #1b1b1b;
+            margin-right: 0;
+            line-height: 1.4;
+            text-align: center;
+        }
+        .newsletter-fab .theme-btn { padding: 10px 14px; text-align: center; }
+        
+        /* Custom styling for popup subscribe button */
+        #newsletter-fab-btn {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            border: none !important;
+            transition: all 0.3s ease;
+        }
+        
+        #newsletter-fab-btn:hover {
+            background-color: #333333 !important;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .newsletter-fab .fab-input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 6px 10px;
+        }
+
+        /* Mobile: make it a bottom bar */
+        @media (max-width: 767px) {
+            .newsletter-fab { left: 12px; right: 12px; bottom: 12px; width: auto; border-radius: 10px; padding: 12px; }
+            .newsletter-fab .close-fab {
+                top: -8px;
+                right: -8px;
+            }
+            .newsletter-fab .fab-input { flex: 1 1 auto; min-width: 0; max-width: none; width: 100%; }
+        }
+
+        /* Modal close button styled like floating popup close */
+        .modal-content { position: relative; overflow: visible; border-radius: 12px; }
+        .modal-header { position: static; }
+        .modal .close {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: #1b617d;
+            color: #ffffff;
+            opacity: 1;
+            text-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 28px;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0;
+            cursor: pointer;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 2;
+        }
+        .modal-header .close span { line-height: 28px; }
+        .modal-header .close:hover { opacity: 1; filter: brightness(0.95); }
+    </style>
+
 </head>
 
 <body class="boxed_wrapper ltr">
@@ -621,8 +755,9 @@
                     </p>
                 </div>
                 <ul class="footer-nav pull-right">
-                    <li><a href="privacy.html">Bedingungen der Dienstleistung</a></li>
-                    <li><a href="privacy.html">Datenschutzbestimmungen</a></li>
+                    <li><a target="_blank" href="https://zodhyatech.com/tnc.html">Bedingungen der Dienstleistung</a></li>
+                    <li><a target="_blank" href="https://zodhyatech.com/privacy.html">Datenschutzbestimmungen</a></li>
+                    <li><a target="_blank" href="https://zodhyatech.com/gdpr.html">GDPR Einhaltung</a></li>
                 </ul>
             </div>
         </div>
@@ -634,6 +769,47 @@
     <button class="scroll-top scroll-to-target" data-target="html">
         <span class="fa fa-arrow-up"></span>
     </button>
+
+
+
+
+     <!-- Newsletter floating popup -->
+    <div id="newsletter-fab" class="newsletter-fab" style="display:none;">
+        <button class="close-fab" aria-label="Close" title="Close" id="newsletter-fab-close">×</button>
+        <span class="fab-label">Abonnieren Sie unseren E-Mail-Newsletter, um praktische Tipps, Kundenberichte und Einblicke zum Thema Nachhaltigkeit zu erhalten.</span>
+        <input type="email" id="newsletter-fab-email" class="fab-input" placeholder="Your email">
+        <a href="#" class="theme-btn style-three" id="newsletter-fab-btn" style="width:100%;">Abonnieren</a>
+    </div>
+
+    <!-- Newsletter Modal -->
+    <div class="modal fade" id="newsletterModal" tabindex="-1" role="dialog" aria-labelledby="newsletterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newsletterModalLabel">Abonnieren Sie unseren Newsletter für umsetzbare Energiespartipps und praktische Anwendungsbeispiele.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newsletter-form" method="post" action="#">
+                        <div class="form-group">
+                            <input type="email" name="EMAIL" id="newsletter-email" class="form-control" placeholder="Your email" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check" style="display: flex; align-items: flex-start; gap: 8px;">
+                                <input class="form-check-input" type="checkbox" value="yes" id="newsletter-consent" required style="margin-top: 2px; flex-shrink: 0;">
+                                <label class="form-check-label" for="newsletter-consent" style="cursor:pointer; font-size: 12px; line-height: 1.4;">Durch Klicken hier erklären Sie sich damit einverstanden, unseren Newsletter an die oben angegebene E-Mail-Adresse zu erhalten. Weitere Informationen zum Umgang mit Ihren Daten finden Sie in unserer<a href="https://zodhyatech.com/privacy" target="_blank"> Datenschutzerklärung.</a>.</label>
+                            </div>
+                        </div>
+                        <button id="newsletter-submit" type="submit" class="theme-btn style-three">Abonnieren</button>
+                        <div id="newsletter-message" style="margin-top:8px; display:none;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- jequery plugins -->
@@ -658,56 +834,160 @@
         document.cookie = "language=de";
         
     </script>
-      <script>
-        
-        const getCookie=(cname)=> {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for(let i = 0; i <ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                   return c.substring(name.length, c.length);
-               }
-            }
-            return "";
-        }
-        
-        
-
-        let language=getCookie("language")
-        if (language) {
-            document.getElementById('language').textContent = language;
-        } else {
-            document.getElementById('language').textContent = en;
-        }
-        
-
-        // const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-        
-        // const germanyTimeZone = 'Europe/Berlin';
-        // const japanTimeZone = 'Asia/Tokyo';
-
-        // // Check if the user's time zone matches Germany or Japan
-        // if (userTimeZone === germanyTimeZone) {
-           
-        //     window.location.href = 'https://example.com/germany-page';
-        // } 
-        // else if (userTimeZone === japanTimeZone) {
-            
-        //     window.location.href = 'https://example.com/japan-page';
-        // } 
-        // else {
-           
-        //     window.location.href = 'https://amamit.in';
-        // }
-
-
+     
+    <script>
+        document.cookie = "language=de";
     </script>
+     <script>
+        // Newsletter FAB behavior + modal open
+        (function() {
+            var fab = document.getElementById('newsletter-fab');
+            var closeBtn = document.getElementById('newsletter-fab-close');
+            var openBtn = document.getElementById('newsletter-fab-btn');
+            var cookieKey = 'zodhya_newsletter_fab_closed';
+            var hasShownPopup = false;
+
+            // Function to show popup if conditions are met
+            function showPopupIfAllowed() {
+                if (hasShownPopup) return;
+                
+                try {
+                    // Check if user is already subscribed
+                    var isSubscribed = getCookie('zodhya_newsletter_subscribed');
+                    if (isSubscribed === 'true') {
+                        return; // Don't show popup if already subscribed
+                    }
+                    
+                    var closedUntil = getCookie(cookieKey);
+                    var shouldHide = closedUntil && Date.now() < parseInt(closedUntil, 10);
+                    if (!shouldHide) {
+                        fab.style.display = 'flex';
+                        hasShownPopup = true;
+                    }
+                } catch (e) {
+                    fab.style.display = 'flex';
+                    hasShownPopup = true;
+                }
+            }
+
+            // Use Intersection Observer to detect when products section comes into view
+            if ('IntersectionObserver' in window) {
+                var productsSection = document.querySelector('.news-section');
+                if (productsSection) {
+                    var observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                showPopupIfAllowed();
+                                observer.unobserve(entry.target); // Stop observing once triggered
+                            }
+                        });
+                    }, {
+                        threshold: 0.3 // Trigger when 30% of the section is visible
+                    });
+                    observer.observe(productsSection);
+                }
+            } else {
+                // Fallback for older browsers - show after 3 seconds
+                setTimeout(showPopupIfAllowed, 3000);
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    fab.style.display = 'none';
+                    try {
+                        // hide for 3 days using cookie
+                        setCookie(cookieKey, String(Date.now() + (3 * 24 * 60 * 60 * 1000)), 3);
+                    } catch (e) {}
+                });
+            }
+
+            if (openBtn) {
+                openBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Prefill email into modal
+                    var fabEmail = document.getElementById('newsletter-fab-email');
+                    var modalEmail = document.getElementById('newsletter-email');
+                    if (fabEmail && modalEmail && fabEmail.value) {
+                        modalEmail.value = fabEmail.value.trim();
+                    }
+                    try {
+                        $('#newsletterModal').modal('show');
+                    } catch (err) {
+                        // fallback: if Bootstrap modal JS not ready, jump to top
+                        var modal = document.getElementById('newsletterModal');
+                        if (modal) { modal.style.display = 'block'; }
+                    }
+                });
+            }
+        })();
+    </script>
+
+    <script>
+        (function() {
+            var form = document.getElementById('newsletter-form');
+            if (!form) return;
+            var emailInput = document.getElementById('newsletter-email');
+            var consent = document.getElementById('newsletter-consent');
+            var submitBtn = document.getElementById('newsletter-submit');
+            var messageEl = document.getElementById('newsletter-message');
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                messageEl.style.display = 'none';
+                var email = (emailInput.value || '').trim();
+                var emailValid = emailRegex.test(email);
+                if (!emailValid || !consent.checked) {
+                    messageEl.style.display = 'block';
+                    messageEl.style.color = '#c0392b';
+                    messageEl.textContent = !emailValid ? 'Please enter a valid email address.' : 'Please agree to the consent to continue.';
+                    return;
+                }
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+
+                fetch('https://script.google.com/macros/s/AKfycbzLndwzH8fuMyIS1jKxZ00JrXHZlBS0BFbM7_sqsuOH-JP0w8gLFml2sArQkm84a0yjYA/exec', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+                    body: JSON.stringify({ email: email, source: 'de.zodhyatech.com' })
+                })
+                .then(function(res) { return res.ok ? res.json().catch(function(){ return {}; }) : Promise.reject(res); })
+                .then(function() {
+                    messageEl.style.display = 'block';
+                    messageEl.style.color = '#1b617d';
+                    messageEl.textContent = 'Danke! Du bist jetzt für unseren Newsletter angemeldet.';
+                    // Set cookie to remember subscription (expires in 1 year)
+                    setCookie('zodhya_newsletter_subscribed', 'true', 365);
+                    // Hide the floating popup immediately after subscription
+                    var fab = document.getElementById('newsletter-fab');
+                    if (fab) {
+                        fab.style.display = 'none';
+                    }
+                    // Clear modal inputs
+                    emailInput.value = '';
+                    consent.checked = false;
+                    // Clear popup input as well
+                    var fabEmailInput = document.getElementById('newsletter-fab-email');
+                    if (fabEmailInput) { fabEmailInput.value = ''; }
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Subscribe';
+                    // Auto-close modal after a short delay
+                    try {
+                        setTimeout(function() { $('#newsletterModal').modal('hide'); }, 2500);
+                    } catch (err) {}
+                })
+                .catch(function() {
+                    messageEl.style.display = 'block';
+                    messageEl.style.color = '#c0392b';
+                    messageEl.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Abonnieren';
+                });
+            });
+        })();
+    </script>
+
 
 </body>
 <!-- End of .page_wrapper -->
