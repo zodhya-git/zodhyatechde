@@ -250,7 +250,7 @@
                             <i class="icon-bar"></i>
                         </div>
                         
-                        <nav style="margin-left:11vw" class="main-menu navbar-expand-md navbar-light">
+                        <nav style="margin-left:9vw" class="main-menu navbar-expand-md navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li class="current"><a href="index.html">Heim</a></li>
@@ -293,7 +293,7 @@
 
         <!--sticky Header-->
         <div class="sticky-header">
-            <div class="container clearfix">
+            <div class="auto-container clearfix">
                 <figure class="logo-box"><a href="index.html"><img src="assets/images/logosmall.png" alt=""
                             style="width: 60%;"></a></figure>
                 <div class="menu-area">
@@ -834,10 +834,34 @@
         document.cookie = "language=de";
         
     </script>
-     
-    <script>
-        document.cookie = "language=de";
+    
+      <script>
+        
+        const getCookie=(cname)=> {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                   return c.substring(name.length, c.length);
+               }
+            }
+            return "";
+        }
+        
+        const setCookie=(cname, cvalue, exdays)=> {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        
     </script>
+
      <script>
         // Newsletter FAB behavior + modal open
         (function() {
@@ -959,6 +983,7 @@
                     messageEl.textContent = 'Danke! Du bist jetzt für unseren Newsletter angemeldet.';
                     // Set cookie to remember subscription (expires in 1 year)
                     setCookie('zodhya_newsletter_subscribed', 'true', 365);
+                    console.log('Subscription successful');
                     // Hide the floating popup immediately after subscription
                     var fab = document.getElementById('newsletter-fab');
                     if (fab) {
